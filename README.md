@@ -9,6 +9,8 @@ jira-smart-copy/
 ├── .github/
 │   └── workflows/
 │       └── release.yml          # GitHub Actions workflow for releases
+├── assets/
+│   └── icon.png                 # Extension icon
 ├── docs/
 │   ├── README.md                # Project documentation
 │   ├── DEVELOPMENT.md           # Development workflow guidelines
@@ -18,8 +20,7 @@ jira-smart-copy/
 │   ├── locales.js               # Internationalization strings
 │   ├── content.js               # Content script (runs on Jira pages)
 │   ├── popup.html               # Extension popup UI
-│   ├── popup.js                 # Popup logic
-│   └── icon.png                 # Extension icon
+│   └── popup.js                 # Popup logic
 ├── manifest.json                # Chrome extension manifest
 └── .gitignore                   # Git ignore rules
 ```

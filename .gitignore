@@ -15,3 +15,4 @@ node_modules/
 *.crx
 *.pem
 *.zip
+CHROME_STORE_SETUP.md

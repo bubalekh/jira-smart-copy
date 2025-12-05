@@ -5,16 +5,16 @@
   "description": "Copies Jira taskId and summary in various formats for Slack, Markdown, Plain text, and HTML. Multilingual extension (EN/FR/RU).",
   "permissions": ["storage", "activeTab", "scripting", "clipboardWrite"],
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "src/popup.html",
     "default_title": "Jira Smart Copy"
   },
   "content_scripts": [
     {
       "matches": ["https://*/browse/*"],
-      "js": ["constants.js", "locales.js", "content.js"]
+      "js": ["src/constants.js", "src/locales.js", "src/content.js"]
     }
   ],
   "icons": {
-    "128": "icon.png"
+    "128": "src/icon.png"
   }
 }

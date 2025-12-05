@@ -76,11 +76,23 @@ git commit -m "docs(jsc-1): update README with dark mode info"
 git push origin jsc-{номер}-{описание}
 ```
 
-2. Создайте Pull Request с:
-   - Заголовком: `JSC-{номер}: {Описание}`
-   - Ссылкой на issue: `Closes #N`
-   - Описанием изменений
-   - Скриншотами (если применимо)
+2. Создайте Pull Request автоматически:
+```bash
+gh pr create --title "JSC-{номер}: {Описание}" \
+  --body "Closes #{номер}" \
+  --base main
+```
+
+Или используйте скрипт:
+```bash
+./scripts/create-pr.sh "JSC-{номер}: Title" "Description of changes"
+```
+
+3. В PR укажите:
+   - Заголовок: `JSC-{номер}: {Описание}`
+   - Ссылку на issue: `Closes #N`
+   - Описание изменений
+   - Скриншоты (если применимо)
 
 ### 5. Мерж
 

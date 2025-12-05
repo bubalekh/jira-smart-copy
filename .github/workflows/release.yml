@@ -34,13 +34,8 @@ jobs:
         run: |
           mkdir -p dist
           zip -r dist/jira-smart-copy-v${{ steps.get_version.outputs.VERSION }}.zip \
-            constants.js \
-            content.js \
-            icon.png \
-            locales.js \
+            src/ \
             manifest.json \
-            popup.html \
-            popup.js \
             -x "*.git*" -x "*.DS_Store"
       
       # - name: Publish to Chrome Web Store

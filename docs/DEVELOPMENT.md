@@ -38,7 +38,7 @@ jsc-{номер}-{краткое-описание}
 
 ### 1. Начало работы
 
-Используйте скрипт для автоматического создания issue и ветки:
+Используйте скрипт для автоматического создания draft PR и ветки:
 
 ```bash
 ./scripts/start-work.sh "Brief description of the work"
@@ -46,16 +46,19 @@ jsc-{номер}-{краткое-описание}
 
 Скрипт автоматически:
 - ✅ Обновит main ветку
-- ✅ Определит следующий доступный JSC номер
-- ✅ Создаст GitHub issue с шаблоном
+- ✅ Определит следующий доступный JSC номер (на основе PR)
 - ✅ Создаст ветку с правильным именем `jsc-N-description`
+- ✅ Создаст пустой коммит для инициализации
+- ✅ Создаст **draft PR** (номер PR = номер JSC)
 - ✅ Переключится на новую ветку
 
 **Пример:**
 ```bash
 ./scripts/start-work.sh "Add dark mode support"
-# Создаст: issue #8, ветку jsc-8-add-dark-mode-support
+# Создаст: draft PR #9, ветку jsc-9-add-dark-mode-support
 ```
+
+**Важно:** Теперь issue не создаются отдельно - draft PR выполняет их функцию. Это гарантирует, что номер JSC = номер PR.
 
 ### 2. Разработка
 
@@ -75,34 +78,15 @@ git commit -m "fix(jsc-3): correct HTML formatting in Firefox"
 git commit -m "docs(jsc-1): update README with dark mode info"
 ```
 
-### 4. Pull Request
+### 4. Завершение работы
 
-1. Запушьте ветку в репозиторий:
+Когда работа готова, пометьте PR как ready for review:
+
 ```bash
-git push origin jsc-{номер}-{описание}
+gh pr ready
 ```
 
-2. Создайте Pull Request автоматически с помощью скрипта:
-```bash
-# Автоматически определит JSC номер из имени ветки
-./scripts/create-pr.sh "Add dark mode support"
-
-# Или укажите номер вручную
-./scripts/create-pr.sh 5 "Add dark mode support"
-```
-
-Скрипт автоматически:
-- ✅ Извлечёт номер JSC из имени ветки (если есть)
-- ✅ Предложит следующий доступный номер (если нет в ветке)
-- ✅ Создаст PR с правильным заголовком `JSC-N: Description`
-- ✅ Добавит `Closes #N` в описание
-
-Или используйте `gh` напрямую:
-```bash
-gh pr create --title "JSC-{номер}: {Описание}" \
-  --body "Closes #{номер}" \
-  --base main
-```
+Или через веб-интерфейс GitHub.
 
 ### 5. Мерж
 
@@ -156,11 +140,11 @@ git push origin v{версия}
 ## Быстрые команды
 
 ```bash
-# Начать новую работу (создаёт issue + ветку)
+# Начать новую работу (создаёт draft PR + ветку)
 ./scripts/start-work.sh "Description of work"
 
-# Создать PR (автоопределение JSC номера)
-./scripts/create-pr.sh "Description of changes"
+# Пометить PR как готовый к ревью
+gh pr ready
 
 # Обновить ветку из main
 git checkout main && git pull && git checkout jsc-{N}-{description} && git merge main

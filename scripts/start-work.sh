@@ -16,11 +16,9 @@ git checkout main
 git pull origin main
 
 # Get next JSC number
-echo "📋 Fetching latest issue/PR numbers..."
+echo "📋 Fetching latest PR numbers..."
 LAST_PR=$(gh pr list --state all --json number --jq 'map(.number) | max // 0')
-LAST_ISSUE=$(gh issue list --state all --json number --jq 'map(.number) | max // 0')
-LAST_NUM=$((LAST_PR > LAST_ISSUE ? LAST_PR : LAST_ISSUE))
-NEXT_NUM=$((LAST_NUM + 1))
+NEXT_NUM=$((LAST_PR + 1))
 
 echo ""
 echo "🔢 Next JSC number: JSC-${NEXT_NUM}"
@@ -34,9 +32,18 @@ BRANCH_NAME="jsc-${NEXT_NUM}-${BRANCH_SUFFIX}"
 echo "🌿 Branch name: ${BRANCH_NAME}"
 echo ""
 
-# Create issue
-echo "Creating GitHub issue..."
-ISSUE_URL=$(gh issue create \
+# Create and checkout branch
+echo "🌿 Creating branch ${BRANCH_NAME}..."
+git checkout -b "${BRANCH_NAME}"
+
+# Create initial commit to enable PR creation
+echo "📝 Creating initial commit..."
+git commit --allow-empty -m "chore(jsc-${NEXT_NUM}): initialize work on ${DESCRIPTION}"
+git push -u origin "${BRANCH_NAME}"
+
+# Create draft PR
+echo "📋 Creating draft PR..."
+PR_URL=$(gh pr create \
     --title "JSC-${NEXT_NUM}: ${DESCRIPTION}" \
     --body "## Description
 
@@ -52,20 +59,16 @@ ${DESCRIPTION}
 
 _To be defined_
 " \
-    --label "enhancement")
+    --draft \
+    --base main)
 
-echo "✅ Issue created: ${ISSUE_URL}"
-
-# Create and checkout branch
-echo "🌿 Creating branch ${BRANCH_NAME}..."
-git checkout -b "${BRANCH_NAME}"
-
+echo "✅ Draft PR created: ${PR_URL}"
 echo ""
 echo "✨ Ready to work on JSC-${NEXT_NUM}!"
 echo ""
 echo "Next steps:"
 echo "  1. Make your changes"
 echo "  2. Commit: git commit -m \"feat(jsc-${NEXT_NUM}): your changes\""
-echo "  3. Push: git push -u origin ${BRANCH_NAME}"
-echo "  4. Create PR: ./scripts/create-pr.sh \"${DESCRIPTION}\""
+echo "  3. Push: git push"
+echo "  4. Mark as ready: gh pr ready"
 echo ""

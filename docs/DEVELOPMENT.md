@@ -36,22 +36,28 @@ jsc-{номер}-{краткое-описание}
 
 ## Процесс разработки
 
-### 1. Создание Issue
+### 1. Начало работы
 
-1. Создайте issue в GitHub с префиксом JSC
-2. Опишите задачу, требования и критерии приёмки
-3. Присвойте метки (bug, enhancement, feature, etc.)
-
-### 2. Создание ветки
+Используйте скрипт для автоматического создания issue и ветки:
 
 ```bash
-# Создайте ветку от main
-git checkout main
-git pull origin main
-git checkout -b jsc-{номер}-{описание}
+./scripts/start-work.sh "Brief description of the work"
 ```
 
-### 3. Разработка
+Скрипт автоматически:
+- ✅ Обновит main ветку
+- ✅ Определит следующий доступный JSC номер
+- ✅ Создаст GitHub issue с шаблоном
+- ✅ Создаст ветку с правильным именем `jsc-N-description`
+- ✅ Переключится на новую ветку
+
+**Пример:**
+```bash
+./scripts/start-work.sh "Add dark mode support"
+# Создаст: issue #8, ветку jsc-8-add-dark-mode-support
+```
+
+### 2. Разработка
 
 1. Делайте коммиты с понятными сообщениями
 2. Используйте conventional commits:
@@ -150,8 +156,11 @@ git push origin v{версия}
 ## Быстрые команды
 
 ```bash
-# Создать новую фичу
-git checkout main && git pull && git checkout -b jsc-{N}-{description}
+# Начать новую работу (создаёт issue + ветку)
+./scripts/start-work.sh "Description of work"
+
+# Создать PR (автоопределение JSC номера)
+./scripts/create-pr.sh "Description of changes"
 
 # Обновить ветку из main
 git checkout main && git pull && git checkout jsc-{N}-{description} && git merge main

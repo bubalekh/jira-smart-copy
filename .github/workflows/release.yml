@@ -1,0 +1,41 @@
+name: Release Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+      
+      - name: Create extension package
+        run: |
+          mkdir -p dist
+          zip -r dist/jira-smart-copy-v${{ steps.get_version.outputs.VERSION }}.zip \
+            constants.js \
+            content.js \
+            icon.png \
+            locales.js \
+            manifest.json \
+            popup.html \
+            popup.js \
+            -x "*.git*" -x "*.DS_Store"
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/jira-smart-copy-v${{ steps.get_version.outputs.VERSION }}.zip
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

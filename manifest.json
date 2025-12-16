@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Jira Smart Copy",
-  "version": "1.4",
+  "version": "1.9",
   "description": "Copies Jira taskId and summary in various formats for Slack, Markdown, Plain text, and HTML. Multilingual extension (EN/FR/RU).",
   "permissions": ["storage", "activeTab", "scripting", "clipboardWrite"],
   "action": {

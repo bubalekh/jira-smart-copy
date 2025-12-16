@@ -4,6 +4,9 @@ const elements = {
     languagesContainer: document.getElementById("languages"),
     formatLabel: document.getElementById("format-label"),
     copyLabel: document.getElementById("copy-label"),
+    advancedSettingsLabel: document.getElementById("advanced-settings-label"),
+    replaceLabel: document.getElementById("replace-label"),
+    replaceCheckbox: document.getElementById("replaceDefault"),
 };
 
 function createRadioButton(name, value, isChecked, labelText) {
@@ -33,20 +36,23 @@ function renderRadioButtons(lang, format, copyMode) {
     });
 }
 
-function applyTranslations(lang, format, copyMode) {
+function applyTranslations(lang, format, copyMode, replaceDefault) {
     elements.formatLabel.innerText = locales[lang].formatLabel;
     elements.copyLabel.innerText = locales[lang].copyLabel;
+    elements.replaceLabel.innerText = locales[lang].replaceLabel;
+    elements.advancedSettingsLabel.innerText = locales[lang].advancedSettingsLabel;
+    elements.replaceCheckbox.checked = replaceDefault;
     renderRadioButtons(lang, format, copyMode);
 }
 
 function initializeSettings() {
-    chrome.storage.local.get(["format", "copyMode", "lang"], ({
+    chrome.storage.local.get(["format", "copyMode", "lang", "replaceDefault"], ({
         format = DEFAULTS.format,
         copyMode = DEFAULTS.copyMode,
         lang = DEFAULTS.lang,
         replaceDefault = DEFAULTS.replaceDefault
     }) => {
-        applyTranslations(lang, format, copyMode);
+        applyTranslations(lang, format, copyMode, replaceDefault);
     });
 }
 
@@ -54,15 +60,17 @@ initializeSettings();
 
 function setupEventListeners() {
     document.addEventListener("change", (e) => {
-        const { name, value } = e.target;
+        const { name, value, checked } = e.target;
 
         if (name === "lang") {
             chrome.storage.local.set({ lang: value });
-            chrome.storage.local.get(["format", "copyMode"], ({ format, copyMode }) => {
-                applyTranslations(value, format, copyMode);
+            chrome.storage.local.get(["format", "copyMode", "replaceDefault"], ({ format, copyMode, replaceDefault }) => {
+                applyTranslations(value, format, copyMode, replaceDefault);
             });
         } else if (name === "format" || name === "copyMode") {
             chrome.storage.local.set({ [name]: value });
+        } else if (e.target.id === "replaceDefault") {
+            chrome.storage.local.set({ replaceDefault: checked });
         }
     });
 }

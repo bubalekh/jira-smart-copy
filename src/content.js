@@ -37,6 +37,78 @@ chrome.storage.local.get(["lang"], ({ lang = DEFAULTS.lang }) => {
 
         e.preventDefault();
     });
+
+
+    let replaceDefaultEnabled = DEFAULTS.replaceDefault;
+
+    chrome.storage.local.get(["replaceDefault"], ({ replaceDefault }) => {
+        replaceDefaultEnabled = replaceDefault ?? DEFAULTS.replaceDefault;
+    });
+
+    chrome.storage.onChanged.addListener((changes, area) => {
+        if (area === "local" && changes.replaceDefault) {
+            replaceDefaultEnabled = changes.replaceDefault.newValue;
+            replaceJiraCopyButton();
+        }
+    });
+
+    function replaceJiraCopyButton() {
+        const wrapper = document.querySelector(
+            '[data-testid="issue.common.component.permalink-button.button.copy-link-button-wrapper"]'
+        );
+        if (!wrapper) return;
+
+        if (wrapper.dataset.smartCopyProcessed) {
+            const icon = wrapper.querySelector(
+                '[data-testid="issue.common.component.permalink-button.button.link-icon"]'
+            );
+            if (icon) {
+                icon.style.color = replaceDefaultEnabled ? "#FFD700" : "";
+            }
+            return;
+        }
+
+        wrapper.dataset.smartCopyProcessed = "true";
+
+        const icon = wrapper.querySelector(
+            '[data-testid="issue.common.component.permalink-button.button.link-icon"]'
+        );
+        if (icon && replaceDefaultEnabled) {
+            icon.style.color = "#FFD700";
+        }
+
+        wrapper.addEventListener(
+            "click",
+            (e) => {
+                if (!replaceDefaultEnabled) return;
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                const taskId = getJiraTaskId();
+                if (!taskId) return;
+
+                const summary = getJiraSummary();
+
+                chrome.storage.local.get(["format", "copyMode"], ({ format = DEFAULTS.format, copyMode = DEFAULTS.copyMode }) => {
+                    copyToClipboard(taskId, summary, format, copyMode);
+                });
+            },
+            true
+        );
+    }
+
+    const observer = new MutationObserver(() => {
+        replaceJiraCopyButton();
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    replaceJiraCopyButton();
+
 });
 
 function getCopyText(taskId, summary, url, format, copyMode) {

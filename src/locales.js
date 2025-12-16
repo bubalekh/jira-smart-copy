@@ -2,6 +2,8 @@ const locales = {
   en: {
     formatLabel: "Link format",
     copyLabel: "What to copy",
+    advancedSettingsLabel: "Advanced",
+    replaceLabel: "Replace default copy",
     markdown: "Markdown",
     slack: "Slack",
     plain: "Plain",
@@ -14,6 +16,8 @@ const locales = {
   fr: {
     formatLabel: "Format du lien",
     copyLabel: "Que copier",
+    advancedSettingsLabel: "Avancées",
+    replaceLabel: "Remplacer copie par défaut",
     markdown: "Markdown",
     slack: "Slack",
     plain: "Texte simple",
@@ -26,6 +30,8 @@ const locales = {
   ru: {
     formatLabel: "Формат ссылки",
     copyLabel: "Что копировать",
+    advancedSettingsLabel: "Расширенные настройки",
+    replaceLabel: "Заменить стандартное копирование",
     markdown: "Markdown",
     slack: "Slack",
     plain: "Простой текст",

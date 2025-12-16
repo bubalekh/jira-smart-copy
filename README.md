@@ -26,10 +26,13 @@ jira-smart-copy/
 
 ## Features
 
-- 📋 Copy Jira task ID with one click (Cmd+C / Ctrl+C)
+- 📋 Copy Jira task ID with one click
 - 🔗 Multiple format support: Markdown, Slack, Plain text, HTML
 - 🌍 Multilingual: English, Français, Русский
 - ⚡ Smart mode: Copy only Task ID or Task ID + Summary
+- 🔁 Copy trigger options:
+    - Cmd+C / Ctrl+C
+    - Jira default copy button replacement
 
 ## Installation
 
@@ -51,7 +54,7 @@ jira-smart-copy/
 ## Usage
 
 1. Navigate to any Jira issue page
-2. Press `Cmd+C` (Mac) or `Ctrl+C` (Windows/Linux)
+2. Press `Cmd+C` (Mac) or `Ctrl+C` (Windows/Linux) OR use the Jira copy button near the ticket ID (if enabled)
 3. The task ID (and summary if enabled) will be copied in your selected format
 
 ## Configuration
@@ -59,6 +62,7 @@ jira-smart-copy/
 Click the extension icon to configure:
 - **Link format**: Choose between Markdown, Slack, Plain text, or HTML
 - **What to copy**: Only Task ID or Task ID + Summary
+- **Advanced**: Replace default Jira copy button behavior
 - **Language**: Select your preferred language
 
 ## Supported Formats

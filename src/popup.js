@@ -3,7 +3,7 @@ const elements = {
     copyModesContainer: document.getElementById("copyModes"),
     languagesContainer: document.getElementById("languages"),
     formatLabel: document.getElementById("format-label"),
-    copyLabel: document.getElementById("copy-label")
+    copyLabel: document.getElementById("copy-label"),
 };
 
 function createRadioButton(name, value, isChecked, labelText) {
@@ -40,10 +40,11 @@ function applyTranslations(lang, format, copyMode) {
 }
 
 function initializeSettings() {
-    chrome.storage.local.get(["format", "copyMode", "lang"], ({ 
-        format = DEFAULTS.format, 
-        copyMode = DEFAULTS.copyMode, 
-        lang = DEFAULTS.lang 
+    chrome.storage.local.get(["format", "copyMode", "lang"], ({
+        format = DEFAULTS.format,
+        copyMode = DEFAULTS.copyMode,
+        lang = DEFAULTS.lang,
+        replaceDefault = DEFAULTS.replaceDefault
     }) => {
         applyTranslations(lang, format, copyMode);
     });
@@ -54,7 +55,7 @@ initializeSettings();
 function setupEventListeners() {
     document.addEventListener("change", (e) => {
         const { name, value } = e.target;
-        
+
         if (name === "lang") {
             chrome.storage.local.set({ lang: value });
             chrome.storage.local.get(["format", "copyMode"], ({ format, copyMode }) => {

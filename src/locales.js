@@ -9,7 +9,7 @@ const locales = {
     onlyTask: "Only Task ID",
     full: "Task ID + Summary",
     copied: "Copied: ",
-    copyError: "Copy failed"
+    copyError: "Copy failed",
   },
   fr: {
     formatLabel: "Format du lien",
@@ -21,7 +21,7 @@ const locales = {
     onlyTask: "Seulement l'ID",
     full: "ID + résumé",
     copied: "Copié : ",
-    copyError: "Échec de la copie"
+    copyError: "Échec de la copie",
   },
   ru: {
     formatLabel: "Формат ссылки",
@@ -33,6 +33,6 @@ const locales = {
     onlyTask: "Только Task ID",
     full: "Task ID + Summary",
     copied: "Скопировано: ",
-    copyError: "Ошибка копирования"
+    copyError: "Ошибка копирования",
   }
 };

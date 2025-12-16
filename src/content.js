@@ -1,7 +1,7 @@
 chrome.storage.local.get(["lang"], ({ lang = DEFAULTS.lang }) => {
     const showToastMsg = (taskId, success = true) => {
-        const text = success 
-            ? `${locales[lang].copied}${taskId}` 
+        const text = success
+            ? `${locales[lang].copied}${taskId}`
             : locales[lang].copyError;
         showToast(text);
     };
@@ -30,7 +30,7 @@ chrome.storage.local.get(["lang"], ({ lang = DEFAULTS.lang }) => {
         if (!taskId) return;
 
         const summary = getJiraSummary();
-        
+
         chrome.storage.local.get(["format", "copyMode"], ({ format = DEFAULTS.format, copyMode = DEFAULTS.copyMode }) => {
             copyToClipboard(taskId, summary, format, copyMode);
         });
@@ -70,7 +70,7 @@ function showToast(text) {
     const toast = document.createElement("div");
     toast.id = TOAST_ID;
     toast.innerText = text;
-    
+
     Object.assign(toast.style, {
         position: "fixed",
         bottom: "24px",
@@ -87,7 +87,7 @@ function showToast(text) {
 
     document.body.appendChild(toast);
     requestAnimationFrame(() => toast.style.opacity = "1");
-    
+
     setTimeout(() => {
         toast.style.opacity = "0";
         setTimeout(() => toast.remove(), FADE_DURATION);

@@ -2,6 +2,8 @@ const locales = {
   en: {
     formatLabel: "Link format",
     copyLabel: "What to copy",
+    advancedSettingsLabel: "Advanced",
+    replaceLabel: "Replace default copy",
     markdown: "Markdown",
     slack: "Slack",
     plain: "Plain",
@@ -9,11 +11,13 @@ const locales = {
     onlyTask: "Only Task ID",
     full: "Task ID + Summary",
     copied: "Copied: ",
-    copyError: "Copy failed"
+    copyError: "Copy failed",
   },
   fr: {
     formatLabel: "Format du lien",
     copyLabel: "Que copier",
+    advancedSettingsLabel: "Avancées",
+    replaceLabel: "Remplacer copie par défaut",
     markdown: "Markdown",
     slack: "Slack",
     plain: "Texte simple",
@@ -21,11 +25,13 @@ const locales = {
     onlyTask: "Seulement l'ID",
     full: "ID + résumé",
     copied: "Copié : ",
-    copyError: "Échec de la copie"
+    copyError: "Échec de la copie",
   },
   ru: {
     formatLabel: "Формат ссылки",
     copyLabel: "Что копировать",
+    advancedSettingsLabel: "Расширенные настройки",
+    replaceLabel: "Заменить стандартное копирование",
     markdown: "Markdown",
     slack: "Slack",
     plain: "Простой текст",
@@ -33,6 +39,6 @@ const locales = {
     onlyTask: "Только Task ID",
     full: "Task ID + Summary",
     copied: "Скопировано: ",
-    copyError: "Ошибка копирования"
+    copyError: "Ошибка копирования",
   }
 };

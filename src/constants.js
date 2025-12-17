@@ -1,7 +1,8 @@
 const DEFAULTS = {
     lang: "en",
     format: "html",
-    copyMode: "onlyTask"
+    copyMode: "onlyTask",
+    replaceDefault: false
 };
 
 const FORMATS = ["markdown", "slack", "plain", "html"];
